@@ -1,15 +1,10 @@
-const asyncHandler=(func)=>{
-  return async (req,res,next)=>{
-try {
-   await func(req,res,next);
-} catch (error) {
-    res.status(err.code ||500).json({
-        sucess:false,
-        message:err.message
-    })
-}
-    };
-};
-// const asyncHandler=(fn)=>async ()=>{}
-
-export {asyncHandler}
+const asyncHandler = (fn) => (req, res, next) => {
+    Promise.resolve(fn(req, res, next)).catch((error) =>
+      res.status(error.statusCode || 500).json({
+        success: false,
+        message: error.message || "Internal Server Error",
+      })
+    );
+  };
+  
+  export { asyncHandler };

@@ -1,23 +1,18 @@
-import dotenv from "dotenv"
-import mongoose from "mongoose";
-import {app} from "./app.js"
-
+import dotenv from "dotenv";
+import { app } from "./app.js";
 import connectDB from "./db/db.js";
-// require('dotenv').config({path:./env});
 
-import { DB_NAME } from "./constants.js";
-dotenv.config({
-    path:"./env"
-})
+dotenv.config();
 
-connectDB().then(()=>{
-    app.listen(process.env.PORT ||8000 ,()=>{
-        console.log(`server running at port ${process.env.PORT}`);
-    })
-   
-}).catch((error)=>{
-    console.log("Found Error:",error)
-});
+connectDB()
+  .then(() => {
+    app.listen(process.env.PORT || 8000, () => {
+      console.log(`server running at port ${process.env.PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.log("Found Error:", error);
+  });
 
 /*
 
